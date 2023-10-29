@@ -1,5 +1,6 @@
 package com.github.gaboso.healthcareapi.service;
 
+import com.github.gaboso.healthcareapi.domain.dto.CsvDto;
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
 import com.github.gaboso.healthcareapi.domain.entity.MedicalRecordEntity;
 import com.github.gaboso.healthcareapi.mapper.MedicalRecordMapper;
@@ -14,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 class MedicalRecordServiceTest {
@@ -36,6 +38,23 @@ class MedicalRecordServiceTest {
     @AfterEach
     void tearDown() throws Exception {
         closeable.close();
+    }
+
+    @Test
+    void saveAll_ShouldCallRepositoryAndMapper() {
+        Mockito.when(mapper.toMedicalRecordEntityList(ArgumentMatchers.anyList()))
+            .thenReturn(List.of(new MedicalRecordEntity()));
+        Mockito.when(repository.saveAll(ArgumentMatchers.anyList()))
+            .thenReturn(List.of(new MedicalRecordEntity()));
+        Mockito.when(mapper.toMedicalRecordResponseList(ArgumentMatchers.anyList()))
+            .thenReturn(List.of(MedicalRecordResponseDto.builder().build()));
+
+        List<CsvDto> csvDtoList = List.of(CsvDto.builder().code("xyz").build());
+        service.saveAll(csvDtoList);
+
+        Mockito.verify(mapper, Mockito.times(1)).toMedicalRecordEntityList(ArgumentMatchers.anyList());
+        Mockito.verify(repository, Mockito.times(1)).saveAll(ArgumentMatchers.anyList());
+        Mockito.verify(mapper, Mockito.times(1)).toMedicalRecordResponseList(ArgumentMatchers.anyList());
     }
 
     @Test

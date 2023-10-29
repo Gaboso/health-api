@@ -4,6 +4,7 @@
 * Spring Boot 3.1.5
 * Dependency Management: Maven
 * Database: H2
+* * Unit Tests: JUnit 5 & Mockito
 
 ### How to Build :hammer:
 

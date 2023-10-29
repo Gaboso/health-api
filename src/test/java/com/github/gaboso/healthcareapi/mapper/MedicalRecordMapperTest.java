@@ -1,5 +1,6 @@
 package com.github.gaboso.healthcareapi.mapper;
 
+import com.github.gaboso.healthcareapi.domain.dto.CsvDto;
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
 import com.github.gaboso.healthcareapi.domain.entity.MedicalRecordEntity;
 import org.junit.jupiter.api.Assertions;
@@ -60,6 +61,51 @@ class MedicalRecordMapperTest {
     @EmptySource
     void toMedicalRecordResponseList_EmptyInput_IsMappedAsEmptyList(List<MedicalRecordEntity> inputList) {
         List<MedicalRecordResponseDto> result = mapper.toMedicalRecordResponseList(inputList);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(0, result.size());
+    }
+
+    @Test
+    void toMedicalRecordEntityList_ValidInput_IsProperlyMapped() {
+        List<CsvDto> csvDtoList = List.of(
+            CsvDto.builder()
+                .source("ZIB")
+                .codeListCode("ZIB001")
+                .code("271636001")
+                .displayValue("Polsslag regelmatig")
+                .sortingPriority(2)
+                .fromDate(LocalDate.of(2022, 1, 7))
+                .build()
+        );
+
+        List<MedicalRecordEntity> expected = List.of(buildValidEntity());
+        List<MedicalRecordEntity> result = mapper.toMedicalRecordEntityList(csvDtoList);
+
+        MedicalRecordEntity firstExpected = expected.get(0);
+        MedicalRecordEntity firstResult = result.get(0);
+        Assertions.assertEquals(firstExpected.getLongDescription(), firstResult.getLongDescription());
+        Assertions.assertEquals(firstExpected.getCode(), firstResult.getCode());
+        Assertions.assertEquals(firstExpected.getCodeListCode(), firstResult.getCodeListCode());
+        Assertions.assertEquals(firstExpected.getFromDate(), firstResult.getFromDate());
+        Assertions.assertEquals(firstExpected.getToDate(), firstResult.getToDate());
+        Assertions.assertEquals(firstExpected.getDisplayValue(), firstResult.getDisplayValue());
+        Assertions.assertEquals(firstExpected.getSortingPriority(), firstResult.getSortingPriority());
+        Assertions.assertEquals(firstExpected.getSource(), firstResult.getSource());
+    }
+
+    @ParameterizedTest
+    @NullSource
+    void toMedicalRecordEntityList_NullInput_IsMappedAsNull(List<CsvDto> inputList) {
+        List<MedicalRecordEntity> result = mapper.toMedicalRecordEntityList(inputList);
+
+        Assertions.assertNull(result);
+    }
+
+    @ParameterizedTest
+    @EmptySource
+    void toMedicalRecordEntityList_EmptyInput_IsMappedAsEmptyList(List<CsvDto> inputList) {
+        List<MedicalRecordEntity> result = mapper.toMedicalRecordEntityList(inputList);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(0, result.size());
