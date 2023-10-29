@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequestMapping("/api/v1")
@@ -26,6 +28,14 @@ public class MedicalRecordController {
 
         MedicalRecordResponseDto dto = service.fetchByCode(code);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/fetch/all")
+    public ResponseEntity<List<MedicalRecordResponseDto>> fetchAll() {
+        log.debug("REST request to get all medical records");
+
+        List<MedicalRecordResponseDto> dtoList = service.fetchAll();
+        return ResponseEntity.ok(dtoList);
     }
 
 }
