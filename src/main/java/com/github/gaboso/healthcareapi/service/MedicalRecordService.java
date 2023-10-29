@@ -6,6 +6,8 @@ import com.github.gaboso.healthcareapi.mapper.MedicalRecordMapper;
 import com.github.gaboso.healthcareapi.repository.MedicalRecordRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MedicalRecordService {
 
@@ -22,4 +24,10 @@ public class MedicalRecordService {
 
         return mapper.toMedicalRecordResponse(entity);
     }
+
+    public List<MedicalRecordResponseDto> fetchAll() {
+        List<MedicalRecordEntity> entityList = repository.findAll();
+        return mapper.toMedicalRecordResponseList(entityList);
+    }
+
 }

@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
+
 @ExtendWith(MockitoExtension.class)
 class MedicalRecordControllerTest {
 
@@ -47,6 +49,36 @@ class MedicalRecordControllerTest {
             .thenReturn(responseDto);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/fetch/271636001")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void fetchAll_FetchAllMedicalRecords_returns200() throws Exception {
+        MedicalRecordResponseDto firstRecord = MedicalRecordResponseDto.builder().source("ZIB")
+            .codeListCode("ZIB001")
+            .code("61086009")
+            .displayValue("Polsslag onregelmatig")
+            .fromDate("01-01-2022")
+            .sortingPriority(2)
+            .build();
+
+        MedicalRecordResponseDto secondRecord = MedicalRecordResponseDto.builder().source("ZIB")
+            .codeListCode("ZIB001")
+            .code("271636001")
+            .displayValue("Polsslag regelmatig")
+            .longDescription("The long description is necessary")
+            .fromDate("01-01-2022")
+            .sortingPriority(1)
+            .build();
+
+        List<MedicalRecordResponseDto> responseDtoList = List.of(firstRecord, secondRecord);
+
+        Mockito.when(service.fetchAll())
+            .thenReturn(responseDtoList);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/fetch/all")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk());

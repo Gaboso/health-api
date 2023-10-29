@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Collections;
 import java.util.Optional;
 
 class MedicalRecordServiceTest {
@@ -49,4 +50,16 @@ class MedicalRecordServiceTest {
         Mockito.verify(repository, Mockito.times(1)).findByCode(ArgumentMatchers.anyString());
         Mockito.verify(mapper, Mockito.times(1)).toMedicalRecordResponse(ArgumentMatchers.any());
     }
+
+    @Test
+    void fetchAll_ShouldCallRepositoryAndMapper() {
+        Mockito.when(repository.findAll()).thenReturn(Collections.emptyList());
+        Mockito.when(mapper.toMedicalRecordResponseList(ArgumentMatchers.anyList())).thenReturn(Collections.emptyList());
+
+        service.fetchAll();
+
+        Mockito.verify(repository, Mockito.times(1)).findAll();
+        Mockito.verify(mapper, Mockito.times(1)).toMedicalRecordResponseList(ArgumentMatchers.anyList());
+    }
+
 }
