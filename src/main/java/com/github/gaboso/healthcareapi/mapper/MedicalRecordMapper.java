@@ -1,5 +1,6 @@
 package com.github.gaboso.healthcareapi.mapper;
 
+import com.github.gaboso.healthcareapi.domain.dto.CsvDto;
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
 import com.github.gaboso.healthcareapi.domain.entity.MedicalRecordEntity;
 import org.mapstruct.Mapper;
@@ -16,5 +17,7 @@ public interface MedicalRecordMapper {
     MedicalRecordResponseDto toMedicalRecordResponse(MedicalRecordEntity entity);
 
     List<MedicalRecordResponseDto> toMedicalRecordResponseList(List<MedicalRecordEntity> entityList);
+
+    List<MedicalRecordEntity> toMedicalRecordEntityList(List<CsvDto> dtoList);
 
 }

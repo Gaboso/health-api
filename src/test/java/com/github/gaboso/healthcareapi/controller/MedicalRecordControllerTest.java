@@ -1,7 +1,9 @@
 package com.github.gaboso.healthcareapi.controller;
 
+import com.github.gaboso.healthcareapi.domain.dto.CsvDto;
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
 import com.github.gaboso.healthcareapi.service.MedicalRecordService;
+import com.github.gaboso.healthcareapi.utils.CsvUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,11 +13,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,6 +31,9 @@ class MedicalRecordControllerTest {
     @Mock
     private MedicalRecordService service;
 
+    @Mock
+    private CsvUtils csvUtils;
+
     @InjectMocks
     private MedicalRecordController controller;
 
@@ -31,8 +41,30 @@ class MedicalRecordControllerTest {
 
     @BeforeEach
     void setUp() {
-        controller = new MedicalRecordController(service);
+        controller = new MedicalRecordController(service, csvUtils);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+    }
+
+    @Test
+    void uploadFile_UploadValidCsv_returns201() throws Exception {
+        List<CsvDto> csvDtoList = new ArrayList<>();
+        csvDtoList.add(new CsvDto("ZIB", "ZIB001", "61086009", "Polsslag onregelmatig", null, LocalDate.now(), null, 2));
+        csvDtoList.add(new CsvDto("ZIB", "ZIB001", "271636001", "Polsslag regelmatig", "The long description is necessary", LocalDate.now(), null, 1));
+
+        Mockito.when(csvUtils.getDataFromFile(ArgumentMatchers.any(MultipartFile.class)))
+            .thenReturn(csvDtoList);
+
+        Mockito.when(service.saveAll(ArgumentMatchers.anyList()))
+            .thenReturn(ArgumentMatchers.anyList());
+
+        InputStream is = controller.getClass()
+            .getClassLoader()
+            .getResourceAsStream("exercise.csv");
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "exercise.csv", "multipart/form-data", is);
+        mockMvc.perform(MockMvcRequestBuilders
+                .multipart("/api/v1/upload")
+                .file("file", mockMultipartFile.getBytes()))
+            .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test

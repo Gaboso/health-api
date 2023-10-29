@@ -1,10 +1,12 @@
 package com.github.gaboso.healthcareapi.service;
 
+import com.github.gaboso.healthcareapi.domain.dto.CsvDto;
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
 import com.github.gaboso.healthcareapi.domain.entity.MedicalRecordEntity;
 import com.github.gaboso.healthcareapi.mapper.MedicalRecordMapper;
 import com.github.gaboso.healthcareapi.repository.MedicalRecordRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +19,13 @@ public class MedicalRecordService {
     public MedicalRecordService(MedicalRecordRepository repository, MedicalRecordMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
+    }
+
+    @Transactional
+    public List<MedicalRecordResponseDto> saveAll(List<CsvDto> dtoList) {
+        List<MedicalRecordEntity> entityList = mapper.toMedicalRecordEntityList(dtoList);
+        List<MedicalRecordEntity> savedList = repository.saveAll(entityList);
+        return mapper.toMedicalRecordResponseList(savedList);
     }
 
     public MedicalRecordResponseDto fetchByCode(String code) {
