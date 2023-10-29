@@ -81,4 +81,11 @@ class MedicalRecordServiceTest {
         Mockito.verify(mapper, Mockito.times(1)).toMedicalRecordResponseList(ArgumentMatchers.anyList());
     }
 
+    @Test
+    void deleteAll_ShouldCallRepository() {
+        service.deleteAll();
+
+        Mockito.verify(repository, Mockito.times(1)).deleteAll();
+    }
+
 }

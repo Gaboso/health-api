@@ -39,4 +39,9 @@ public class MedicalRecordService {
         return mapper.toMedicalRecordResponseList(entityList);
     }
 
+    @Transactional
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
 }
