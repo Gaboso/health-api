@@ -116,4 +116,12 @@ class MedicalRecordControllerTest {
             .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    void deleteAll_DeleteAllMedicalRecords_returns204() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/delete/all")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
 }
