@@ -7,6 +7,7 @@
 * Unit Tests: JUnit 5 & Mockito
 * Inspection of code quality: Sonarqube & JaCoCo
 * Swagger
+* API Tests: Postman
 
 ### How to Build :hammer:
 
@@ -33,3 +34,5 @@ mvn clean install sonar:sonar -Pcoverage
 * :bucket: [H2 Console](http://localhost:8080/h2) (*user: sa - password: sa*)
 * :green_book: [Swagger](http://localhost:8080/swagger-ui/index.html)
 * :bulb: [Sonarqube](http://localhost:9000/dashboard?id=com.github.gaboso%3Ahealth-care-api) (*needs docker | user: admin - default password: admin*)
+* :cop: [Actuator](http://localhost:8080/management)
+* :rocket: [Postman Collection](postman/MedicalRecords.postman_collection.json) (*This collection needs to be imported on Postman to be used*)
