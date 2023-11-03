@@ -36,3 +36,5 @@ mvn clean install sonar:sonar -Pcoverage
 * :bulb: [Sonarqube](http://localhost:9000/dashboard?id=com.github.gaboso%3Ahealth-care-api) (*needs docker | user: admin - default password: admin*)
 * :cop: [Actuator](http://localhost:8080/management)
 * :rocket: [Postman Collection](postman/MedicalRecords.postman_collection.json) (*This collection needs to be imported on Postman to be used*)
+
+* PS: Added some commits after time because I wasn't happy with the solution *

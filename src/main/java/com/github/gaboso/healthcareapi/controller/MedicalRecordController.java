@@ -2,6 +2,8 @@ package com.github.gaboso.healthcareapi.controller;
 
 import com.github.gaboso.healthcareapi.domain.dto.CsvDto;
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
+import com.github.gaboso.healthcareapi.exception.EmptyFileException;
+import com.github.gaboso.healthcareapi.exception.UnsupportedFileException;
 import com.github.gaboso.healthcareapi.exception.template.ErrorTemplate;
 import com.github.gaboso.healthcareapi.service.MedicalRecordService;
 import com.github.gaboso.healthcareapi.utils.CsvUtils;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Tag(name = "Medical Record", description = "Medical Records Management")
@@ -61,9 +64,7 @@ public class MedicalRecordController {
         })
     })
     @PostMapping(path = {"/upload"}, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<List<MedicalRecordResponseDto>> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
-        log.debug("REST request to upload csv file data");
-
+    public ResponseEntity<List<MedicalRecordResponseDto>> uploadFile(@RequestParam("file") MultipartFile file) throws EmptyFileException, IOException, UnsupportedFileException {
         csvUtils.validateFile(file);
         List<CsvDto> dtoList = csvUtils.getDataFromFile(file);
         List<MedicalRecordResponseDto> savedDtoList = service.saveAll(dtoList);
@@ -99,8 +100,6 @@ public class MedicalRecordController {
     })
     @GetMapping("/fetch/all")
     public ResponseEntity<List<MedicalRecordResponseDto>> fetchAll() {
-        log.debug("REST request to get all medical records");
-
         List<MedicalRecordResponseDto> dtoList = service.fetchAll();
         return ResponseEntity.ok(dtoList);
     }
@@ -115,8 +114,6 @@ public class MedicalRecordController {
     @DeleteMapping("/delete/all")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> deleteAll() {
-        log.debug("REST request to delete all medical records");
-
         service.deleteAll();
         return ResponseEntity.noContent().build();
     }
