@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,15 +17,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException(Exception e) {
+    public ResponseEntity<ErrorTemplate> handleException(Exception e) {
         log.error("Unexpected Exception: ", e);
-        return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return createErrorTemplateResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(EmptyFileException.class)
     public ResponseEntity<ErrorTemplate> handler(EmptyFileException e) {
         log.error("Handling Empty File Exception", e);
+        return createErrorTemplateResponseEntity(e, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<ErrorTemplate> handler(HttpMediaTypeNotSupportedException e) {
+        log.error("Handling Content-Type not supported Exception", e);
         return createErrorTemplateResponseEntity(e, HttpStatus.BAD_REQUEST);
     }
 

@@ -58,11 +58,11 @@ class GlobalExceptionHandlerTest {
     void handleException_AnyException_ReturnsResponseEntity() {
         Exception exception = new Exception("Generic Error");
 
-        ResponseEntity<Object> responseEntity = globalExceptionHandler.handleException(exception);
+        ResponseEntity<ErrorTemplate> responseEntity = globalExceptionHandler.handleException(exception);
 
         Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         Assertions.assertNotNull(responseEntity.getBody());
-        Assertions.assertEquals("Generic Error", responseEntity.getBody());
+        Assertions.assertEquals("Generic Error", responseEntity.getBody().errorMessage());
     }
 
 }
