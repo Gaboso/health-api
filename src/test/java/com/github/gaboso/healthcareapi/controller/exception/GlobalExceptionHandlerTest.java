@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 
 class GlobalExceptionHandlerTest {
 
@@ -51,6 +52,18 @@ class GlobalExceptionHandlerTest {
         Assertions.assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
         Assertions.assertNotNull(responseEntity.getBody());
         Assertions.assertEquals("An error occurred when saving the medical records. Please review the file to ensure that the records are valid and have not been submitted before.",
+            responseEntity.getBody().errorMessage());
+    }
+
+    @Test
+    void handler_HttpMediaTypeNotSupportedException_ReturnsResponseEntityErrorTemplate() {
+        HttpMediaTypeNotSupportedException exception = new HttpMediaTypeNotSupportedException("Only supported file type is text/csv");
+
+        ResponseEntity<ErrorTemplate> responseEntity = globalExceptionHandler.handler(exception);
+
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        Assertions.assertNotNull(responseEntity.getBody());
+        Assertions.assertEquals("Only supported file type is text/csv",
             responseEntity.getBody().errorMessage());
     }
 

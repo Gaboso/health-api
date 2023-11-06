@@ -65,7 +65,58 @@
                             ]
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "name": "400 - Invalid Content-Type",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "file",
+                                            "type": "file",
+                                            "src": "resources/exercise.csv"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{host}}/{{apiV1}}/upload",
+                                    "host": [
+                                        "{{host}}"
+                                    ],
+                                    "path": [
+                                        "{{apiV1}}",
+                                        "upload"
+                                    ]
+                                }
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 06 Nov 2023 17:21:33 GMT"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "close"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"errorCode\": \"BAD_REQUEST\",\n    \"errorMessage\": \"Content-Type is not supported\"\n}"
+                        }
+                    ]
                 },
                 {
                     "name": "415 - Unsupported Media Type",
@@ -123,7 +174,62 @@
                             ]
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "name": "415 - Unsupported Media Type",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "file",
+                                            "type": "file",
+                                            "src": "/C:/personal/health-api/postman/wrong_file.gif"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{host}}/{{apiV1}}/upload",
+                                    "host": [
+                                        "{{host}}"
+                                    ],
+                                    "path": [
+                                        "{{apiV1}}",
+                                        "upload"
+                                    ]
+                                }
+                            },
+                            "status": "Unsupported Media Type",
+                            "code": 415,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 06 Nov 2023 17:21:52 GMT"
+                                },
+                                {
+                                    "key": "Keep-Alive",
+                                    "value": "timeout=60"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "keep-alive"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"errorCode\": \"UNSUPPORTED_MEDIA_TYPE\",\n    \"errorMessage\": \"Only supported file type is text/csv\"\n}"
+                        }
+                    ]
                 },
                 {
                     "name": "201 - Upload Medical Records with Success",
@@ -152,7 +258,7 @@
                             "script": {
                                 "exec": [
                                     "var host = pm.collectionVariables.get(\"host\");\r",
-                                    "var apiV1= pm.collectionVariables.get(\"apiV1\");\r",
+                                    "var apiV1 = pm.collectionVariables.get(\"apiV1\");\r",
                                     "\r",
                                     "pm.sendRequest({\r",
                                     "    url: host+'/'+apiV1+'/delete/all',\r",
@@ -194,7 +300,62 @@
                             ]
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "name": "201 - Success",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "file",
+                                            "type": "file",
+                                            "src": "exercise.csv"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{host}}/{{apiV1}}/upload",
+                                    "host": [
+                                        "{{host}}"
+                                    ],
+                                    "path": [
+                                        "{{apiV1}}",
+                                        "upload"
+                                    ]
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 06 Nov 2023 16:16:55 GMT"
+                                },
+                                {
+                                    "key": "Keep-Alive",
+                                    "value": "timeout=60"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "keep-alive"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "[\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB001\",\n        \"code\": \"271636001\",\n        \"displayValue\": \"Polsslag regelmatig\",\n        \"longDescription\": \"The long description is necessary\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 1\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB001\",\n        \"code\": \"61086009\",\n        \"displayValue\": \"Polsslag onregelmatig\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 2\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB001\",\n        \"code\": \"Type 1\",\n        \"displayValue\": \"Losse harde keutels, zoals noten\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 2\",\n        \"displayValue\": \"Als een worst, maar klonterig\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 3\",\n        \"displayValue\": \"Als een worst, maar met barstjes aan de buitenkant\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 4\",\n        \"displayValue\": \"Als een worst of slang, glad en zacht\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 5\",\n        \"displayValue\": \"Zachte keutels met duidelijke randen\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 6\",\n        \"displayValue\": \"Zachte stukjes met gehavende randen\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 7\",\n        \"displayValue\": \"Helemaal vloeibaar\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"307047009\",\n        \"displayValue\": \"Rectale temperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 1\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415945006\",\n        \"displayValue\": \"Orale temperatuur (onder de tong)\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 2\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415882003\",\n        \"displayValue\": \"Axillaire temperatuur (onder de oksel)\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415929009\",\n        \"displayValue\": \"Inguinale temperatuur (via de lies)\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415974002\",\n        \"displayValue\": \"Tympanische temperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 3\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415922000\",\n        \"displayValue\": \"Temporale temperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"364246006\",\n        \"displayValue\": \"Vaginale temperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"698832009\",\n        \"displayValue\": \"Blaastemperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"276885007\",\n        \"displayValue\": \"Kern temperatuur (invasief gemeten)\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    }\n]"
+                        }
+                    ]
                 },
                 {
                     "name": "409 - Conflict",
@@ -252,7 +413,62 @@
                             ]
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "name": "409 - Conflict",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "file",
+                                            "type": "file",
+                                            "src": "exercise.csv"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{host}}/{{apiV1}}/upload",
+                                    "host": [
+                                        "{{host}}"
+                                    ],
+                                    "path": [
+                                        "{{apiV1}}",
+                                        "upload"
+                                    ]
+                                }
+                            },
+                            "status": "Conflict",
+                            "code": 409,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 06 Nov 2023 17:22:04 GMT"
+                                },
+                                {
+                                    "key": "Keep-Alive",
+                                    "value": "timeout=60"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "keep-alive"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"errorCode\": \"CONFLICT\",\n    \"errorMessage\": \"An error occurred when saving the medical records. Please review the file to ensure that the records are valid and have not been submitted before.\"\n}"
+                        }
+                    ]
                 }
             ],
             "description": "This endpoint allows users to securely upload a .CSV file containing medical records. Upon successful upload, the system processes the data and returns a list of medical record in response."
@@ -308,7 +524,106 @@
                             ]
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "name": "200 - Existing Medical Records",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                },
+                                "url": {
+                                    "raw": "{{host}}/{{apiV1}}/fetch/all",
+                                    "host": [
+                                        "{{host}}"
+                                    ],
+                                    "path": [
+                                        "{{apiV1}}",
+                                        "fetch",
+                                        "all"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 06 Nov 2023 17:23:33 GMT"
+                                },
+                                {
+                                    "key": "Keep-Alive",
+                                    "value": "timeout=60"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "keep-alive"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "[\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB001\",\n        \"code\": \"271636001\",\n        \"displayValue\": \"Polsslag regelmatig\",\n        \"longDescription\": \"The long description is necessary\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 1\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB001\",\n        \"code\": \"61086009\",\n        \"displayValue\": \"Polsslag onregelmatig\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 2\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB001\",\n        \"code\": \"Type 1\",\n        \"displayValue\": \"Losse harde keutels, zoals noten\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 2\",\n        \"displayValue\": \"Als een worst, maar klonterig\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 3\",\n        \"displayValue\": \"Als een worst, maar met barstjes aan de buitenkant\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 4\",\n        \"displayValue\": \"Als een worst of slang, glad en zacht\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 5\",\n        \"displayValue\": \"Zachte keutels met duidelijke randen\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 6\",\n        \"displayValue\": \"Zachte stukjes met gehavende randen\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB002\",\n        \"code\": \"Type 7\",\n        \"displayValue\": \"Helemaal vloeibaar\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"307047009\",\n        \"displayValue\": \"Rectale temperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 1\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415945006\",\n        \"displayValue\": \"Orale temperatuur (onder de tong)\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 2\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415882003\",\n        \"displayValue\": \"Axillaire temperatuur (onder de oksel)\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415929009\",\n        \"displayValue\": \"Inguinale temperatuur (via de lies)\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415974002\",\n        \"displayValue\": \"Tympanische temperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": 3\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"415922000\",\n        \"displayValue\": \"Temporale temperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"364246006\",\n        \"displayValue\": \"Vaginale temperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"698832009\",\n        \"displayValue\": \"Blaastemperatuur\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    },\n    {\n        \"source\": \"ZIB\",\n        \"codeListCode\": \"ZIB003\",\n        \"code\": \"276885007\",\n        \"displayValue\": \"Kern temperatuur (invasief gemeten)\",\n        \"longDescription\": \"\",\n        \"fromDate\": \"01-01-2019\",\n        \"toDate\": null,\n        \"sortingPriority\": null\n    }\n]"
+                        },
+                        {
+                            "name": "200 - No Medical Records",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                },
+                                "url": {
+                                    "raw": "{{host}}/{{apiV1}}/fetch/all",
+                                    "host": [
+                                        "{{host}}"
+                                    ],
+                                    "path": [
+                                        "{{apiV1}}",
+                                        "fetch",
+                                        "all"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 06 Nov 2023 17:24:15 GMT"
+                                },
+                                {
+                                    "key": "Keep-Alive",
+                                    "value": "timeout=60"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "keep-alive"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "[]"
+                        }
+                    ]
                 }
             ]
         },
@@ -361,7 +676,151 @@
                             ]
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "name": "200 - Existing Code",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                },
+                                "url": {
+                                    "raw": "{{host}}/{{apiV1}}/fetch/{{code}}",
+                                    "host": [
+                                        "{{host}}"
+                                    ],
+                                    "path": [
+                                        "{{apiV1}}",
+                                        "fetch",
+                                        "{{code}}"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 06 Nov 2023 17:25:14 GMT"
+                                },
+                                {
+                                    "key": "Keep-Alive",
+                                    "value": "timeout=60"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "keep-alive"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"source\": \"ZIB\",\n    \"codeListCode\": \"ZIB001\",\n    \"code\": \"271636001\",\n    \"displayValue\": \"Polsslag regelmatig\",\n    \"longDescription\": \"The long description is necessary\",\n    \"fromDate\": \"01-01-2019\",\n    \"toDate\": null,\n    \"sortingPriority\": 1\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "200 - Fetch by Non Existing Code",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {\r",
+                                    "    pm.response.to.have.status(200);\r",
+                                    "})\r",
+                                    "\r",
+                                    "pm.test(\"The body should be empty\", () => {\r",
+                                    "    pm.expect(pm.response.stream).to.be.empty;\r",
+                                    "});\r",
+                                    "\r",
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "url": {
+                            "raw": "{{host}}/{{apiV1}}/fetch/XYZ_INVALID",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "path": [
+                                "{{apiV1}}",
+                                "fetch",
+                                "XYZ_INVALID"
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Fetch by Non Existing Code",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": []
+                                },
+                                "url": {
+                                    "raw": "{{host}}/{{apiV1}}/fetch/XYZ_INVALID",
+                                    "host": [
+                                        "{{host}}"
+                                    ],
+                                    "path": [
+                                        "{{apiV1}}",
+                                        "fetch",
+                                        "XYZ_INVALID"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "plain",
+                            "header": [
+                                {
+                                    "key": "Content-Length",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Mon, 06 Nov 2023 18:06:35 GMT"
+                                },
+                                {
+                                    "key": "Keep-Alive",
+                                    "value": "timeout=60"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "keep-alive"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": null
+                        }
+                    ]
                 }
             ]
         },

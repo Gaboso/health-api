@@ -53,7 +53,7 @@ class MedicalRecordServiceTest {
         service.saveAll(csvDtoList);
 
         Mockito.verify(mapper, Mockito.times(1)).toMedicalRecordEntityList(ArgumentMatchers.anyList());
-        Mockito.verify(repository, Mockito.times(1)).saveAll(ArgumentMatchers.anyList());
+        Mockito.verify(repository, Mockito.times(1)).saveAllAndFlush(ArgumentMatchers.anyList());
         Mockito.verify(mapper, Mockito.times(1)).toMedicalRecordResponseList(ArgumentMatchers.anyList());
     }
 
@@ -85,7 +85,7 @@ class MedicalRecordServiceTest {
     void deleteAll_ShouldCallRepository() {
         service.deleteAll();
 
-        Mockito.verify(repository, Mockito.times(1)).deleteAll();
+        Mockito.verify(repository, Mockito.times(1)).deleteAllInBatch();
     }
 
 }
