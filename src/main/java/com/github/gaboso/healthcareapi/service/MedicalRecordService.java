@@ -24,7 +24,7 @@ public class MedicalRecordService {
     @Transactional
     public List<MedicalRecordResponseDto> saveAll(List<CsvDto> dtoList) {
         List<MedicalRecordEntity> entityList = mapper.toMedicalRecordEntityList(dtoList);
-        List<MedicalRecordEntity> savedList = repository.saveAll(entityList);
+        List<MedicalRecordEntity> savedList = repository.saveAllAndFlush(entityList);
         return mapper.toMedicalRecordResponseList(savedList);
     }
 
@@ -41,7 +41,7 @@ public class MedicalRecordService {
 
     @Transactional
     public void deleteAll() {
-        repository.deleteAll();
+        repository.deleteAllInBatch();
     }
 
 }

@@ -28,6 +28,8 @@ import java.util.List;
 @ExtendWith(MockitoExtension.class)
 class MedicalRecordControllerTest {
 
+    private static final String API_URL = "/api/v1/medical-record-management";
+
     @Mock
     private MedicalRecordService service;
 
@@ -62,7 +64,7 @@ class MedicalRecordControllerTest {
             .getResourceAsStream("exercise.csv");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "exercise.csv", "multipart/form-data", is);
         mockMvc.perform(MockMvcRequestBuilders
-                .multipart("/api/v1/upload")
+                .multipart(API_URL + "/upload")
                 .file("file", mockMultipartFile.getBytes()))
             .andExpect(MockMvcResultMatchers.status().isCreated());
     }
@@ -80,7 +82,7 @@ class MedicalRecordControllerTest {
         Mockito.when(service.fetchByCode(ArgumentMatchers.any()))
             .thenReturn(responseDto);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/fetch/271636001")
+        mockMvc.perform(MockMvcRequestBuilders.get(API_URL + "/fetch/271636001")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk());
@@ -110,7 +112,7 @@ class MedicalRecordControllerTest {
         Mockito.when(service.fetchAll())
             .thenReturn(responseDtoList);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/fetch/all")
+        mockMvc.perform(MockMvcRequestBuilders.get(API_URL + "/fetch/all")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk());
@@ -118,7 +120,7 @@ class MedicalRecordControllerTest {
 
     @Test
     void deleteAll_DeleteAllMedicalRecords_returns204() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/delete/all")
+        mockMvc.perform(MockMvcRequestBuilders.delete(API_URL + "/delete/all")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isNoContent());

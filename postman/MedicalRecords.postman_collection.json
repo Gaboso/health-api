@@ -1,227 +1,449 @@
 {
-	"info": {
-		"_postman_id": "4cf3ca42-5c5f-4b14-bd25-74c957b9b359",
-		"name": "MedicalRecords",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "16551749"
-	},
-	"item": [
-		{
-			"name": "Upload Medical Records",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.collectionVariables.set(\"code\", null); \r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"The response has correct size\", () => {\r",
-							"    //parse the response JSON and test three properties\r",
-							"    const responseJson = pm.response.json();\r",
-							"\r",
-							"    pm.expect(responseJson.length).to.eql(18);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "resources/exercise.csv"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{apiUrl}}/upload",
-					"host": [
-						"{{apiUrl}}"
-					],
-					"path": [
-						"upload"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Fetch all Medical Records",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"The response has correct size\", () => {\r",
-							"    //parse the response JSON and test three properties\r",
-							"    const responseJson = pm.response.json();\r",
-							"\r",
-							"    pm.expect(responseJson.length).to.eql(18);\r",
-							"\r",
-							"    pm.collectionVariables.set(\"code\", responseJson[0].code) \r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"url": {
-					"raw": "{{apiUrl}}/fetch/all",
-					"host": [
-						"{{apiUrl}}"
-					],
-					"path": [
-						"fetch",
-						"all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Fetch Medical Record by code",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"  pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"The response has correct code\", () => {\r",
-							"    const responseJson = pm.response.json();\r",
-							"\r",
-							"    pm.expect(responseJson.code).to.eql(\"271636001\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"url": {
-					"raw": "{{apiUrl}}/fetch/{{code}}",
-					"host": [
-						"{{apiUrl}}"
-					],
-					"path": [
-						"fetch",
-						"{{code}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Fetch Medical Record by code Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 204\", function () {\r",
-							"  pm.response.to.have.status(204);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"url": {
-					"raw": "{{apiUrl}}/delete/all",
-					"host": [
-						"{{apiUrl}}"
-					],
-					"path": [
-						"delete",
-						"all"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "apiUrl",
-			"value": "http://localhost:8080/api/v1"
-		},
-		{
-			"key": "code",
-			"value": ""
-		}
-	]
+    "info": {
+        "_postman_id": "d614f47a-2706-4737-8cbd-59f49bd3cd66",
+        "name": "Medical Record Management",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "2699762"
+    },
+    "item": [
+        {
+            "name": "[MR_001] Upload",
+            "item": [
+                {
+                    "name": "400 - Invalid Content-Type",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.collectionVariables.set(\"code\", null); \r",
+                                    "\r",
+                                    "pm.test(\"Status code is 400\", function () {\r",
+                                    "  pm.response.to.have.status(400);\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.test(\"The response has the correct errorCode\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.errorCode).to.eql(\"BAD_REQUEST\");\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.test(\"The response has the correct errorMessage\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.errorMessage).to.eql(\"Content-Type is not supported\");\r",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "resources/exercise.csv"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{host}}/{{apiV1}}/upload",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "path": [
+                                "{{apiV1}}",
+                                "upload"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "415 - Unsupported Media Type",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.collectionVariables.set(\"code\", null); \r",
+                                    "\r",
+                                    "pm.test(\"Status code is 415\", function () {\r",
+                                    "  pm.response.to.have.status(415);\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.test(\"The response has the correct errorCode\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.errorCode).to.eql(\"UNSUPPORTED_MEDIA_TYPE\");\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.test(\"The response has the correct errorMessage\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.errorMessage).to.eql(\"Only supported file type is text/csv\");\r",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "/C:/personal/health-api/postman/wrong_file.gif"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{host}}/{{apiV1}}/upload",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "path": [
+                                "{{apiV1}}",
+                                "upload"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "201 - Upload Medical Records with Success",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.collectionVariables.set(\"code\", null); \r",
+                                    "\r",
+                                    "pm.test(\"Status code is 201\", function () {\r",
+                                    "  pm.response.to.have.status(201);\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.test(\"The response has correct size\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.length).to.eql(18);\r",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        },
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "exec": [
+                                    "var host = pm.collectionVariables.get(\"host\");\r",
+                                    "var apiV1= pm.collectionVariables.get(\"apiV1\");\r",
+                                    "\r",
+                                    "pm.sendRequest({\r",
+                                    "    url: host+'/'+apiV1+'/delete/all',\r",
+                                    "    method: 'DELETE',\r",
+                                    "}, function (err, res) {\r",
+                                    "    console.log(\"Response:\" + res);\r",
+                                    "    console.log(\"Error:\" + err);\r",
+                                    "});\r",
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "exercise.csv"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{host}}/{{apiV1}}/upload",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "path": [
+                                "{{apiV1}}",
+                                "upload"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "409 - Conflict",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.collectionVariables.set(\"code\", null); \r",
+                                    "\r",
+                                    "pm.test(\"Status code is 409\", function () {\r",
+                                    "  pm.response.to.have.status(409);\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.test(\"The response has the correct errorCode\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.errorCode).to.eql(\"CONFLICT\");\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.test(\"The response has the correct errorMessage\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.errorMessage).to.eql(\"An error occurred when saving the medical records. Please review the file to ensure that the records are valid and have not been submitted before.\");\r",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "exercise.csv"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{host}}/{{apiV1}}/upload",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "path": [
+                                "{{apiV1}}",
+                                "upload"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "description": "This endpoint allows users to securely upload a .CSV file containing medical records. Upon successful upload, the system processes the data and returns a list of medical record in response."
+        },
+        {
+            "name": "[MR_002] Fetch All",
+            "item": [
+                {
+                    "name": "200 - Fetch all",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {\r",
+                                    "  pm.response.to.have.status(200);\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.test(\"The response has correct size\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.length).to.eql(18);\r",
+                                    "\r",
+                                    "    pm.collectionVariables.set(\"code\", responseJson[0].code) \r",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "url": {
+                            "raw": "{{host}}/{{apiV1}}/fetch/all",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "path": [
+                                "{{apiV1}}",
+                                "fetch",
+                                "all"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "[MR_003] Fetch by Code",
+            "item": [
+                {
+                    "name": "200 - Fetch by Existing Code",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 200\", function () {\r",
+                                    "  pm.response.to.have.status(200);\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.test(\"The response has correct code\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.code).to.eql(\"271636001\");\r",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "url": {
+                            "raw": "{{host}}/{{apiV1}}/fetch/{{code}}",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "path": [
+                                "{{apiV1}}",
+                                "fetch",
+                                "{{code}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "[MR_004] Delete All",
+            "item": [
+                {
+                    "name": "204 - Delete All",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test(\"Status code is 204\", function () {\r",
+                                    "  pm.response.to.have.status(204);\r",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "url": {
+                            "raw": "{{host}}/{{apiV1}}/delete/all",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "path": [
+                                "{{apiV1}}",
+                                "delete",
+                                "all"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "host",
+            "value": "http://localhost:8080",
+            "type": "string"
+        },
+        {
+            "key": "code",
+            "value": ""
+        },
+        {
+            "key": "apiV1",
+            "value": "api/v1/medical-record-management",
+            "type": "string"
+        }
+    ]
 }
