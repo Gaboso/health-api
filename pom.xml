@@ -24,14 +24,8 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <opencsv.version>5.8</opencsv.version>
 
-        <sonar.login>admin</sonar.login>
-        <sonar.password>admin</sonar.password>
-        <sonar.sources>src/main</sonar.sources>
-        <sonar.tests>src/test</sonar.tests>
-        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.language>java</sonar.language>
+        <sonar.organization>gaboso</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
