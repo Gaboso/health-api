@@ -10,14 +10,5 @@ services:
     networks:
       - health-net
 
-  sonarqube:
-    image: sonarqube:lts-community
-    container_name: 'health_sonar'
-    ports:
-      - "9000:9000"
-      - "9092:9092"
-    networks:
-      - health-net
-
 networks:
   health-net:
