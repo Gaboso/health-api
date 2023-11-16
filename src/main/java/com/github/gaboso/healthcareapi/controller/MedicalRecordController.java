@@ -4,6 +4,7 @@ import com.github.gaboso.healthcareapi.api.MedicalRecordApi;
 import com.github.gaboso.healthcareapi.domain.dto.CsvDto;
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
 import com.github.gaboso.healthcareapi.exception.EmptyFileException;
+import com.github.gaboso.healthcareapi.exception.NotFoundException;
 import com.github.gaboso.healthcareapi.exception.UnsupportedFileException;
 import com.github.gaboso.healthcareapi.service.MedicalRecordService;
 import com.github.gaboso.healthcareapi.utils.CsvUtils;
@@ -39,7 +40,7 @@ public class MedicalRecordController implements MedicalRecordApi {
     }
 
     @Override
-    public ResponseEntity<MedicalRecordResponseDto> fetchByCode(@PathVariable("code") String code) {
+    public ResponseEntity<MedicalRecordResponseDto> fetchByCode(@PathVariable("code") String code) throws NotFoundException {
         MedicalRecordResponseDto dto = service.fetchByCode(code);
         return ResponseEntity.ok(dto);
     }

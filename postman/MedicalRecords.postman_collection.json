@@ -263,9 +263,15 @@
                                     "pm.sendRequest({\r",
                                     "    url: host+'/'+apiV1+'/delete/all',\r",
                                     "    method: 'DELETE',\r",
-                                    "}, function (err, res) {\r",
-                                    "    console.log(\"Response:\" + res);\r",
-                                    "    console.log(\"Error:\" + err);\r",
+                                    "}, function (error, response) {\r",
+                                    "    if (error) {\r",
+                                    "        console.log(error);\r",
+                                    "    }\r",
+                                    "\r",
+                                    "    pm.test('response should be okay to process', () => {\r",
+                                    "        pm.expect(error).to.equal(null);\r",
+                                    "        pm.expect(response).to.have.property('code', 204);\r",
+                                    "    });\r",
                                     "});\r",
                                     ""
                                 ],
@@ -729,20 +735,27 @@
                     ]
                 },
                 {
-                    "name": "200 - Fetch by Non Existing Code",
+                    "name": "404 - Fetch by Non Existing Code",
                     "event": [
                         {
                             "listen": "test",
                             "script": {
                                 "exec": [
-                                    "pm.test('Status code is 200', function () {\r",
-                                    "    pm.response.to.have.status(200);\r",
+                                    "pm.test('Status code is 404', function () {\r",
+                                    "    pm.response.to.have.status(404);\r",
                                     "})\r",
                                     "\r",
-                                    "pm.test(\"The body should be empty\", () => {\r",
-                                    "    pm.expect(pm.response.stream).to.be.empty;\r",
+                                    "pm.test(\"The response has the correct errorCode\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.errorCode).to.eql(\"NOT_FOUND\");\r",
                                     "});\r",
                                     "\r",
+                                    "pm.test(\"The response has the correct errorMessage\", () => {\r",
+                                    "    const responseJson = pm.response.json();\r",
+                                    "\r",
+                                    "    pm.expect(responseJson.errorMessage).to.eql(\"Resource with code: XYZ_INVALID not found, check if the value is correct\");\r",
+                                    "});\r",
                                     ""
                                 ],
                                 "type": "text/javascript"

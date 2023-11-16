@@ -3,6 +3,7 @@ package com.github.gaboso.healthcareapi.service;
 import com.github.gaboso.healthcareapi.domain.dto.CsvDto;
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
 import com.github.gaboso.healthcareapi.domain.entity.MedicalRecordEntity;
+import com.github.gaboso.healthcareapi.exception.NotFoundException;
 import com.github.gaboso.healthcareapi.mapper.MedicalRecordMapper;
 import com.github.gaboso.healthcareapi.repository.MedicalRecordRepository;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,8 @@ public class MedicalRecordService {
         return mapper.toMedicalRecordResponseList(savedList);
     }
 
-    public MedicalRecordResponseDto fetchByCode(String code) {
-        MedicalRecordEntity entity = repository.findByCode(code).orElse(null);
+    public MedicalRecordResponseDto fetchByCode(String code) throws NotFoundException {
+        MedicalRecordEntity entity = repository.findByCode(code).orElseThrow(() -> new NotFoundException(code));
 
         return mapper.toMedicalRecordResponse(entity);
     }

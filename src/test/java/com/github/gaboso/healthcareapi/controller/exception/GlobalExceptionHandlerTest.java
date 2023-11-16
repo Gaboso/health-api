@@ -2,6 +2,7 @@ package com.github.gaboso.healthcareapi.controller.exception;
 
 
 import com.github.gaboso.healthcareapi.exception.EmptyFileException;
+import com.github.gaboso.healthcareapi.exception.NotFoundException;
 import com.github.gaboso.healthcareapi.exception.UnsupportedFileException;
 import com.github.gaboso.healthcareapi.exception.template.ErrorTemplate;
 import org.junit.jupiter.api.Assertions;
@@ -52,6 +53,18 @@ class GlobalExceptionHandlerTest {
         Assertions.assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
         Assertions.assertNotNull(responseEntity.getBody());
         Assertions.assertEquals("An error occurred when saving the medical records. Please review the file to ensure that the records are valid and have not been submitted before.",
+            responseEntity.getBody().errorMessage());
+    }
+
+    @Test
+    void handler_NotFoundException_ReturnsResponseEntityErrorTemplate() {
+        NotFoundException exception = new NotFoundException("123456");
+
+        ResponseEntity<ErrorTemplate> responseEntity = globalExceptionHandler.handler(exception);
+
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        Assertions.assertNotNull(responseEntity.getBody());
+        Assertions.assertEquals("Resource with code: 123456 not found, check if the value is correct",
             responseEntity.getBody().errorMessage());
     }
 

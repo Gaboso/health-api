@@ -18,7 +18,7 @@ mvn clean install -DskipTests
 ### How to up :whale2:
 
 ```shell
-docker-compose -f docker-compose.yml up -d
+docker-compose -f docker-compose.yml up -d --build
 ```
 
 > PS: to run this the sonarqube on docker must be running, and maybe be needed to update sonar.password property on pom.xml

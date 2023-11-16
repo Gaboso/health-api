@@ -2,6 +2,7 @@ package com.github.gaboso.healthcareapi.api;
 
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
 import com.github.gaboso.healthcareapi.exception.EmptyFileException;
+import com.github.gaboso.healthcareapi.exception.NotFoundException;
 import com.github.gaboso.healthcareapi.exception.UnsupportedFileException;
 import com.github.gaboso.healthcareapi.exception.template.ErrorTemplate;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,10 +59,13 @@ public interface MedicalRecordApi {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Medical Record", content = {
             @Content(schema = @Schema(implementation = MedicalRecordResponseDto.class))
+        }),
+        @ApiResponse(responseCode = "404", description = "Medical Record not found", content = {
+            @Content(schema = @Schema(implementation = ErrorTemplate.class))
         })
     })
     @GetMapping("/fetch/{code}")
-    ResponseEntity<MedicalRecordResponseDto> fetchByCode(@PathVariable("code") String code);
+    ResponseEntity<MedicalRecordResponseDto> fetchByCode(@PathVariable("code") String code) throws NotFoundException;
 
     @Operation(
         summary = "[MR_003] Find all Medical Records",

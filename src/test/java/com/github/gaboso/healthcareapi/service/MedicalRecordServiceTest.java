@@ -3,6 +3,7 @@ package com.github.gaboso.healthcareapi.service;
 import com.github.gaboso.healthcareapi.domain.dto.CsvDto;
 import com.github.gaboso.healthcareapi.domain.dto.MedicalRecordResponseDto;
 import com.github.gaboso.healthcareapi.domain.entity.MedicalRecordEntity;
+import com.github.gaboso.healthcareapi.exception.NotFoundException;
 import com.github.gaboso.healthcareapi.mapper.MedicalRecordMapper;
 import com.github.gaboso.healthcareapi.repository.MedicalRecordRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -58,7 +59,7 @@ class MedicalRecordServiceTest {
     }
 
     @Test
-    void fetchByCode_ShouldCallRepositoryAndMapper() {
+    void fetchByCode_ShouldCallRepositoryAndMapper() throws NotFoundException {
         MedicalRecordEntity medicalRecordEntity = new MedicalRecordEntity();
         Mockito.when(repository.findByCode(ArgumentMatchers.anyString())).thenReturn(Optional.of(medicalRecordEntity));
         Mockito.when(mapper.toMedicalRecordResponse(ArgumentMatchers.any(MedicalRecordEntity.class)))

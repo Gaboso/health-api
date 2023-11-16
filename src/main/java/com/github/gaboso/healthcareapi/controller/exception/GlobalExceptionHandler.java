@@ -1,6 +1,7 @@
 package com.github.gaboso.healthcareapi.controller.exception;
 
 import com.github.gaboso.healthcareapi.exception.EmptyFileException;
+import com.github.gaboso.healthcareapi.exception.NotFoundException;
 import com.github.gaboso.healthcareapi.exception.UnsupportedFileException;
 import com.github.gaboso.healthcareapi.exception.template.ErrorTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorTemplate> handler(UnsupportedFileException e) {
         log.error("Handling Unsupported File Exception", e);
         return createErrorTemplateResponseEntity(e, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorTemplate> handler(NotFoundException e) {
+        log.error("Handling Not Found Exception", e);
+        return createErrorTemplateResponseEntity(e, HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
